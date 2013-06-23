@@ -2,10 +2,10 @@
 
 Personal vagrant install of Debian focusing on PHP development.
 
-# Installation
+## Installation
 
 The following instructions are specific to OSX.
 
-## Install Vagrant
+### Install Vagrant
 
-Download and install vagrant: http://downloads.vagrantup.com
+Download and install vagrant (1.2.2+): http://downloads.vagrantup.com
