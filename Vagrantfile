@@ -8,4 +8,6 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, ip: "33.33.33.10"
   config.vm.network :public_network, :bridge => 'en1: Wi-Fi (AirPort)'
 
+  config.vm.share_folder("app", "/app", "./app", :nfs => true)
+
 end
