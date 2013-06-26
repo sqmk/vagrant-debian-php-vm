@@ -10,4 +10,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "app/", "/app", :nfs => true
 
+  config.vm.provision :puppet
+
 end
