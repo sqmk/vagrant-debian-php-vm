@@ -4,3 +4,5 @@ file {'php.ini':
   mode    => 0755,
   content => 'a value'
 } 
+
+class { 'apt': }
