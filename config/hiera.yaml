@@ -1,0 +1,4 @@
+---
+:backends:
+  - yaml
+  - json
