@@ -6,13 +6,13 @@ file { 'php.ini':
 } 
 
 class { 'apt':
-  always_apt_update => true
+  always_apt_update => true,
 }
 
 class mysql {
 
   package { "mysql-server": 
-    ensure => installed 
+    ensure => installed,
   }
 
   service { "mysql":
@@ -20,4 +20,16 @@ class mysql {
   }
 }
 
+class rabbitmq {
+	
+  package { "rabbitmq-server":
+    ensure => installed,
+  }
+
+  service { "rabbitmq-server":
+    ensure => running,
+  }
+}
+
 include mysql
+include rabbitmq
