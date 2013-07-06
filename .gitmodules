@@ -19,3 +19,6 @@
 [submodule "modules/memcached"]
 	path = modules/memcached
 	url = https://github.com/saz/puppet-memcached.git
+[submodule "modules/rabbitmq"]
+	path = modules/rabbitmq
+	url = https://github.com/puppetlabs/puppetlabs-rabbitmq

@@ -11,23 +11,12 @@ class { 'apt':
 
 class { 'redis': version => '2.6.14', }
 
-class rabbitmq {
-	
-  package { "rabbitmq-server":
-    ensure => installed,
-  }
-
-  service { "rabbitmq-server":
-    ensure => running,
-  }
-}
-
-include rabbitmq
-
 class { 'mysql::server':
-  config_hash => { 'root_password' => 'password' }
+  config_hash => { 'root_password' => 'password' },
 }
 
 class { 'memcached':
   max_memory => '12%'
 }
+
+class { 'rabbitmq::server': }
