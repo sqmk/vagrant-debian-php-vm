@@ -27,3 +27,7 @@ include rabbitmq
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }
+
+class { 'memcached':
+  max_memory => '12%'
+}

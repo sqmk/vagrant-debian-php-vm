@@ -16,3 +16,6 @@
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = https://github.com/puppetlabs/puppetlabs-mysql
+[submodule "modules/memcached"]
+	path = modules/memcached
+	url = https://github.com/saz/puppet-memcached.git
