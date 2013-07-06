@@ -23,3 +23,7 @@ class rabbitmq {
 }
 
 include rabbitmq
+
+class { 'mysql::server':
+  config_hash => { 'root_password' => 'password' }
+}
