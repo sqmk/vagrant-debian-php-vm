@@ -20,3 +20,11 @@ class { 'memcached':
 }
 
 class { 'rabbitmq::server': }
+
+package { "postfix":
+  ensure => "installed"
+}
+
+package { "dovecot-core":
+  ensure => "installed"
+}
