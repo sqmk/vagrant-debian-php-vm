@@ -9,16 +9,7 @@ class { 'apt':
   always_apt_update => true,
 }
 
-class mysql {
-
-  package { "mysql-server": 
-    ensure => installed,
-  }
-
-  service { "mysql":
-    ensure => running,
-  }
-}
+class { 'redis': version => '2.6.14', }
 
 class rabbitmq {
 	
@@ -31,5 +22,4 @@ class rabbitmq {
   }
 }
 
-include mysql
 include rabbitmq
