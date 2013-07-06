@@ -16,6 +16,3 @@
 [submodule "modules/gcc"]
 	path = modules/gcc
 	url = https://github.com/puppetlabs/puppetlabs-gcc.git
-[submodule "modules/elasticsearch"]
-	path = modules/elasticsearch
-	url = https://github.com/electrical/puppet-elasticsearch
