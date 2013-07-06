@@ -13,6 +13,7 @@ class { 'redis': version => '2.6.14', }
 
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' },
+  require => Class['apt'],
 }
 
 class { 'memcached':
