@@ -22,3 +22,6 @@
 [submodule "modules/rabbitmq"]
 	path = modules/rabbitmq
 	url = https://github.com/puppetlabs/puppetlabs-rabbitmq
+[submodule "modules/git"]
+	path = modules/git
+	url = https://github.com/puppetlabs/puppetlabs-git.git

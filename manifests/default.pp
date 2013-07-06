@@ -54,6 +54,7 @@ class { 'debian-update':
 }
 
 class { 'apt': }
+class { 'git': }
 class { 'php-configuration': }
 class { 'mail-configuration': }
 class { 'cache-configuration': }
