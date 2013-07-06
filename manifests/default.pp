@@ -1,31 +1,63 @@
-file { 'php.ini':
-  path    => '/tmp/php.ini.bak',
-  ensure  => present,
-  mode    => 0755,
-  content => 'a value'
-} 
+# Configure Exec
 
-class { 'apt':
-  always_apt_update => true,
+Exec {
+  path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ]
 }
 
-class { 'redis': version => '2.6.14', }
+# Stages
 
-class { 'mysql::server':
-  config_hash => { 'root_password' => 'password' },
-  require => Class['apt'],
+stage { 'preinstall':
+  before => Stage['main']
 }
 
-class { 'memcached':
-  max_memory => '12%'
+# Custom classes
+
+class debian-update {
+  exec { "apt-get update":
+    command => "apt-get update",
+  }
+
+  exec { "apt-get upgrade":
+    command => "apt-get -y dist-upgrade",
+    require => Exec["apt-get update"],
+  }
 }
 
+class php-configuration {
+  file { 'php.ini':
+    path    => '/tmp/php.ini.bak',
+    ensure  => present,
+    mode    => 0755,
+    content => 'a value'
+  }
+}
+
+class mail-configuration {
+  package { "postfix":
+    ensure => "installed"
+  }
+
+  package { "dovecot-core":
+    ensure => "installed"
+  }
+}
+
+class cache-configuration {
+  class { 'redis': version => '2.6.14', }
+  class { 'memcached': max_memory => '12%', }
+}
+
+# Include classes
+
+class { 'debian-update':
+  stage => preinstall
+}
+
+class { 'apt': }
+class { 'php-configuration': }
+class { 'mail-configuration': }
+class { 'cache-configuration': }
 class { 'rabbitmq::server': }
-
-package { "postfix":
-  ensure => "installed"
-}
-
-package { "dovecot-core":
-  ensure => "installed"
+class { 'mysql::server':
+  config_hash => { 'root_password' => 'password' }
 }
