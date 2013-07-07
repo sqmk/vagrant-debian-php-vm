@@ -59,6 +59,7 @@ class { 'php-configuration': }
 class { 'mail-configuration': }
 class { 'cache-configuration': }
 class { 'rabbitmq::server': }
+class { 'java': }
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }
