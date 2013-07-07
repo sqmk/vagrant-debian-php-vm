@@ -60,6 +60,7 @@ class { 'mail-configuration': }
 class { 'cache-configuration': }
 class { 'rabbitmq::server': }
 class { 'java': }
+class { 'elasticsearch': }
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }

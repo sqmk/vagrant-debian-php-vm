@@ -28,3 +28,6 @@
 [submodule "modules/java"]
 	path = modules/java
 	url = https://github.com/puppetlabs/puppetlabs-java.git
+[submodule "modules/elasticsearch"]
+	path = modules/elasticsearch
+	url = https://github.com/sqmk/puppet-elasticsearch
