@@ -1,4 +1,4 @@
-# Vagrant: Debian (squeeze) with PHP 
+# Vagrant: Debian (wheezy) with PHP 
 
 Personal vagrant install of Debian focusing on PHP development.
 
