@@ -32,14 +32,14 @@ class php-configuration {
   }
 }
 
-class mail-configuration {
-  package { "postfix":
-    ensure => "installed"
-  }
+class php-supporting {
+  package { "ntp": }
+  package { "imagemagick": }
+}
 
-  package { "dovecot-core":
-    ensure => "installed"
-  }
+class mail-configuration {
+  package { "postfix": }
+  package { "dovecot-core": }
 }
 
 class cache-configuration {
@@ -56,6 +56,7 @@ class { 'debian-update':
 class { 'apt': }
 class { 'git': }
 class { 'php-configuration': }
+class { 'php-supporting': }
 class { 'mail-configuration': }
 class { 'cache-configuration': }
 class { 'rabbitmq::server': }
