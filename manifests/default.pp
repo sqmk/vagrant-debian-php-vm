@@ -35,6 +35,10 @@ class php-configuration {
 class php-supporting {
   package { "ntp": }
   package { "imagemagick": }
+  package { "subversion": }
+  package { "nasm": }
+  package { "yasm": }
+  package { "autoconf": }
 }
 
 class mail-configuration {
