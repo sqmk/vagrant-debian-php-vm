@@ -39,6 +39,13 @@ class php-supporting {
   package { "nasm": }
   package { "yasm": }
   package { "autoconf": }
+  package { "tidy": }
+  package { "libtidy-dev": }
+  package { "curl": }
+  package { "libcurl4-openssl-dev": }
+  package { "libxml++2.6-dev": }
+  package { "mcrypt": }
+  package { "libmcrypt-dev": }
 }
 
 class mail-configuration {
