@@ -25,6 +25,9 @@ class debian-update {
 
 class php-main {
   include php
+  include php::apt
+
+  class { "php::cli": ensure => '5.4.17-1~dotdeb.0' }
 }
 
 class php-supporting {
