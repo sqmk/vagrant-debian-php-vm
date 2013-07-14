@@ -23,13 +23,8 @@ class debian-update {
   }
 }
 
-class php-configuration {
-  file { 'php.ini':
-    path    => '/tmp/php.ini.bak',
-    ensure  => present,
-    mode    => 0755,
-    content => 'a value'
-  }
+class php-main {
+  include php
 }
 
 class php-supporting {
@@ -66,7 +61,7 @@ class { 'debian-update':
 
 class { 'apt': }
 class { 'git': }
-class { 'php-configuration': }
+class { 'php-main': }
 class { 'php-supporting': }
 class { 'mail-configuration': }
 class { 'cache-configuration': }
@@ -77,3 +72,5 @@ class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }
 class { 'nginx': }
+
+Class['php-supporting'] -> Class['php-main']
