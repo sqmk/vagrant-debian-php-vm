@@ -40,3 +40,6 @@
 [submodule "modules/php"]
 	path = modules/php
 	url = https://github.com/nodesagency/puppet-php.git
+[submodule "modules/augeas"]
+	path = modules/augeas
+	url = https://github.com/camptocamp/puppet-augeas.git

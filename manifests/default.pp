@@ -12,7 +12,7 @@ stage { 'preinstall':
 
 # Custom classes
 
-class debian-update {
+class debian_update {
   class { 'apt': }
 
   apt::source { 'dotdeb':
@@ -34,7 +34,8 @@ class debian-update {
   }
 }
 
-class php-main {
+class php_main {
+  include augeas
   include php
   include php::pear
 
@@ -44,7 +45,9 @@ class php-main {
   class { 'php::fpm': }
 }
 
-class php-supporting {
+class php_supporting {
+  Class['php_supporting'] -> Class['php_main']
+
   package {
     [
       "ntp",
@@ -64,30 +67,28 @@ class php-supporting {
   }
 }
 
-class mail-configuration {
+class mail_configuration {
   package { ["postfix", "dovecot-core"]: }
 }
 
-class cache-configuration {
+class cache_configuration {
   class { 'redis': version => '2.6.14', }
   class { 'memcached': max_memory => '12%', }
 }
 
 # Include classes
 
-class { 'debian-update':
+class { 'debian_update':
   stage => preinstall
 }
 
-class { 'git': }
-class { 'php-main': }
-class { 'php-supporting': }
-class { 'mail-configuration': }
-class { 'cache-configuration': }
-class { 'rabbitmq::server': }
-class { 'java': }
-class { 'elasticsearch': }
+include git, php_supporting, php_main
+include php_supporting, php_main
+include mail_configuration, cache_configuration
+include rabbitmq::server
+include java, elasticsearch
+include nginx
+
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }
-class { 'nginx': }
