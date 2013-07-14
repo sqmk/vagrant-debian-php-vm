@@ -13,8 +13,19 @@ stage { 'preinstall':
 # Custom classes
 
 class debian-update {
+  class { 'apt': }
+
+  apt::source { 'dotdeb':
+    location   => 'http://packages.dotdeb.org',
+    release    => 'wheezy',
+    repos      => 'all',
+    key        => '89DF5277',
+    key_server => 'keys.gnupg.net'
+  }
+
   exec { "apt-get update":
     command => "apt-get update",
+    require => Apt::Source['dotdeb'],
   }
 
   exec { "apt-get upgrade":
@@ -25,30 +36,35 @@ class debian-update {
 
 class php-main {
   include php
-  include php::apt
+  include php::pear
 
-  class { "php::cli": ensure => '5.4.17-1~dotdeb.0' }
+  class { 'php::composer': }
+  class { 'php::extension::mcrypt': }
+  class { 'php::extension::mysql': }
 }
 
 class php-supporting {
-  package { "ntp": }
-  package { "imagemagick": }
-  package { "subversion": }
-  package { "nasm": }
-  package { "yasm": }
-  package { "autoconf": }
-  package { "tidy": }
-  package { "libtidy-dev": }
-  package { "curl": }
-  package { "libcurl4-openssl-dev": }
-  package { "libxml++2.6-dev": }
-  package { "mcrypt": }
-  package { "libmcrypt-dev": }
+  package {
+    [
+      "ntp",
+      "imagemagick",
+      "subversion",
+      "nasm",
+      "yasm",
+      "autoconf",
+      "tidy",
+      "libtidy-dev",
+      "curl",
+      "libcurl4-openssl-dev",
+      "libxml++2.6-dev",
+      "mcrypt",
+      "libmcrypt-dev"
+    ]:
+  }
 }
 
 class mail-configuration {
-  package { "postfix": }
-  package { "dovecot-core": }
+  package { ["postfix", "dovecot-core"]: }
 }
 
 class cache-configuration {
@@ -62,7 +78,6 @@ class { 'debian-update':
   stage => preinstall
 }
 
-class { 'apt': }
 class { 'git': }
 class { 'php-main': }
 class { 'php-supporting': }
@@ -75,5 +90,3 @@ class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
 }
 class { 'nginx': }
-
-Class['php-supporting'] -> Class['php-main']

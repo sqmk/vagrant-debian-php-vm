@@ -37,3 +37,6 @@
 [submodule "modules/puppi"]
 	path = modules/puppi
 	url = https://github.com/example42/puppi.git
+[submodule "modules/php"]
+	path = modules/php
+	url = https://github.com/nodesagency/puppet-php.git
