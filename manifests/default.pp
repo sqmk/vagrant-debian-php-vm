@@ -41,6 +41,7 @@ class php-main {
   class { 'php::composer': }
   class { 'php::extension::mcrypt': }
   class { 'php::extension::mysql': }
+  class { 'php::fpm': }
 }
 
 class php-supporting {
