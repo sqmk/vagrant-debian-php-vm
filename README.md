@@ -45,3 +45,5 @@ From the root of the directory of the cloned project, vagrant up:
 $ cd vagrant-debian-php-vm
 $ vagrant up
 ```
+
+*Note:* You may be prompted with your OSX password during the point where NFS is enabled. You must provide your password to proceed.
