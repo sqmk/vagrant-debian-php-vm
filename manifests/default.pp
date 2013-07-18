@@ -57,24 +57,23 @@ define php_supporting () {
 define php_main () {
   include augeas
   include php
+  include php::dev
   include php::pear
+  include php::fpm
+  include php::composer
+  include php::extension::imagick
+  include php::extension::mcrypt
+  include php::extension::mysql
+  include php::extension::redis
 
-  class {
-    'php::dev': ;
-    'php::extension::imagick': ;
-    'php::extension::mcrypt': ;
-    'php::extension::mysql': ;
-    'php::extension::redis': ;
-    'php::fpm': ;
-    'php::composer': ;
-  }
+  Class['php::dev'] -> Class['php::pear'] -> Php::Extension <| |> -> Php::Config <| |>
 }
 
 class php_install {
-  Php_supporting <| |> -> Php_main <| |>
-
   php_supporting { "supporting": }
   php_main { "php-5.5.0": }
+
+  Php_supporting <| |> -> Php_main <| |>
 }
 
 class mail_configuration {
@@ -90,6 +89,8 @@ class cache_configuration {
     max_memory => '12%',
     install_dev => true,
   }
+
+  Class['redis'] -> Class['php::extension::redis']
 }
 
 # Include classes
