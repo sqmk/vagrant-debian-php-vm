@@ -54,24 +54,18 @@ define php_supporting () {
   }
 }
 
-define php_main ($version) {
+define php_main () {
   include augeas
   include php
   include php::pear
 
   class {
-    'php::dev':
-      ensure => $version;
-    'php::extension::imagick':
-      ensure => $version;
-    'php::extension::mcrypt':
-      ensure => $version;
-    'php::extension::mysql':
-      ensure => $version;
-    'php::extension::redis':
-      ensure => $version;
-    'php::fpm': 
-      ensure => $version;
+    'php::dev': ;
+    'php::extension::imagick': ;
+    'php::extension::mcrypt': ;
+    'php::extension::mysql': ;
+    'php::extension::redis': ;
+    'php::fpm': ;
     'php::composer': ;
   }
 }
@@ -80,10 +74,7 @@ class php_install {
   Php_supporting <| |> -> Php_main <| |>
 
   php_supporting { "supporting": }
-  
-  php_main { "php-5.5.0":
-    version => "5.5.0-1~dotdeb.1",
-  }
+  php_main { "php-5.5.0": }
 }
 
 class mail_configuration {
