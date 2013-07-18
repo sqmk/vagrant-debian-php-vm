@@ -4,7 +4,7 @@ Vagrant + Puppet installation of Debian focusing on PHP development.
 
 ## Introduction
 
-This vagrant/puppet build includes the following:
+This vagrant/puppet build installs the following:
 - PHP 5.5
 - Nginx
 - PHP-FPM
@@ -29,10 +29,12 @@ Download and install vagrant (1.2.2+): http://downloads.vagrantup.com
 
 ### Clone the git repository
 
-Clone the repository in your prefered location:
+Clone the repository in your prefered location, initialize submodules, and update:
 
 ```sh
-$ git clone clone https://github.com/sqmk/vagrant-debian-php-vm
+$ git clone https://github.com/sqmk/vagrant-debian-php-vm
+$ git submodule init
+$ git submodule update
 ```
 
 ### Vagrant up
@@ -43,3 +45,5 @@ From the root of the directory of the cloned project, vagrant up:
 $ cd vagrant-debian-php-vm
 $ vagrant up
 ```
+
+*Note:* You may be prompted with your OSX password during the point where NFS is enabled. You must provide your password to proceed.
