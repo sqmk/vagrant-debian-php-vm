@@ -29,10 +29,12 @@ Download and install vagrant (1.2.2+): http://downloads.vagrantup.com
 
 ### Clone the git repository
 
-Clone the repository in your prefered location:
+Clone the repository in your prefered location, initialize submodules, and update:
 
 ```sh
 $ git clone clone https://github.com/sqmk/vagrant-debian-php-vm
+$ git submodule init
+$ git submodule update
 ```
 
 ### Vagrant up
