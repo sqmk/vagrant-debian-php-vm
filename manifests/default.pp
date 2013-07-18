@@ -17,7 +17,7 @@ class debian_update {
 
   apt::source { 'dotdeb':
     location   => 'http://packages.dotdeb.org',
-    release    => 'wheezy',
+    release    => 'wheezy-php55',
     repos      => 'all',
     key        => '89DF5277',
     key_server => 'keys.gnupg.net'
@@ -34,20 +34,7 @@ class debian_update {
   }
 }
 
-class php_main {
-  include augeas
-  include php
-  include php::pear
-
-  class { 'php::composer': }
-  class { 'php::extension::mcrypt': }
-  class { 'php::extension::mysql': }
-  class { 'php::fpm': }
-}
-
-class php_supporting {
-  Class['php_supporting'] -> Class['php_main']
-
+define php_supporting () {
   package {
     [
       "ntp",
@@ -67,13 +54,51 @@ class php_supporting {
   }
 }
 
+define php_main ($version) {
+  include augeas
+  include php
+  include php::pear
+
+  class {
+    'php::dev':
+      ensure => $version;
+    'php::extension::imagick':
+      ensure => $version;
+    'php::extension::mcrypt':
+      ensure => $version;
+    'php::extension::mysql':
+      ensure => $version;
+    'php::extension::redis':
+      ensure => $version;
+    'php::fpm': 
+      ensure => $version;
+    'php::composer': ;
+  }
+}
+
+class php_install {
+  Php_supporting <| |> -> Php_main <| |>
+
+  php_supporting { "supporting": }
+  
+  php_main { "php-5.5.0":
+    version => "5.5.0-1~dotdeb.1",
+  }
+}
+
 class mail_configuration {
   package { ["postfix", "dovecot-core"]: }
 }
 
 class cache_configuration {
-  class { 'redis': version => '2.6.14', }
-  class { 'memcached': max_memory => '12%', }
+  class { 'redis':
+    version => '2.6.14',
+  }
+
+  class { 'memcached':
+    max_memory => '12%',
+    install_dev => true,
+  }
 }
 
 # Include classes
@@ -82,8 +107,8 @@ class { 'debian_update':
   stage => preinstall
 }
 
-include git, php_supporting, php_main
-include php_supporting, php_main
+include git
+include php_install
 include mail_configuration, cache_configuration
 include rabbitmq::server
 include java, elasticsearch
