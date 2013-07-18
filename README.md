@@ -1,4 +1,4 @@
-# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5, MySQL, Nginx, Redis
+# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5, MySQL 5.5, Nginx, Redis
 
 Vagrant + Puppet installation of Debian focusing on PHP development.
 
@@ -10,7 +10,7 @@ This vagrant/puppet build installs the following:
 - PHP-FPM
 - Redis
 - Memcached
-- MySQL
+- MySQL 5.5.X
 - ElasticSearch
 - RabbitMQ
 
@@ -32,10 +32,10 @@ Download and install vagrant (1.2.2+): http://downloads.vagrantup.com
 Clone the repository in your prefered location, initialize submodules, and update:
 
 ```sh
-$ git clone https://github.com/sqmk/vagrant-debian-php-vm
-$ git submodule init
-$ git submodule update
+$ git clone https://github.com/sqmk/vagrant-debian-php-vm --recursive
 ```
+
+*--recursive* is important, as you want to initialize and update the submodules included in this repo.
 
 ### Vagrant up
 
