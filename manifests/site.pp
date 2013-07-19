@@ -112,7 +112,7 @@ class cache_configuration {
 
 # Include classes
 
-class { 'debian_update':
+class { 'sqmk::apt::repo':
   stage => preinstall
 }
 
