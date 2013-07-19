@@ -66,6 +66,23 @@ define php_main () {
   include php::extension::mysql
   include php::extension::redis
 
+  # Package deliberately has a space
+  php::extension { 'memcached':
+    ensure   => installed,
+    provider => pecl,
+    package  => "memcached ",
+  }
+
+  php::config { 'memcached':
+      inifile  => '/etc/php5/conf.d/memcached.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'memcached.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
   Class['php::dev'] -> Class['php::pear'] -> Php::Extension <| |> -> Php::Config <| |>
 }
 
@@ -104,7 +121,24 @@ include php_install
 include mail_configuration, cache_configuration
 include rabbitmq::server
 include java, elasticsearch
-include nginx
+
+class { 'nginx':
+  confd_purge => true
+}
+
+nginx::resource::vhost { 'php-dev.example.com':
+  ensure   => present,
+  www_root => '/vagrant/app/www',
+}
+
+nginx::resource::location { 'php-dev.example.com:php':
+  ensure         => present,
+  vhost          => 'php-dev.example.com',
+  www_root       => '/vagrant/app/www',
+  location       => '~ \.php$',
+  fastcgi        => 'unix:/var/run/php5-fpm.sock',
+  fastcgi_script => '$document_root$fastcgi_script_name',
+}
 
 class { 'mysql::server':
   config_hash => { 'root_password' => 'password' }
