@@ -1,4 +1,9 @@
 ---
 :backends:
   - yaml
-  - json
+
+:hierarchy:
+  - common
+
+:yaml:
+    :datadir: 'hieradata'
