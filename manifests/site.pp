@@ -70,7 +70,7 @@ define php_main () {
   php::extension { 'memcached':
     ensure   => installed,
     provider => pecl,
-    package  => "memcached ",
+    package  => "pecl.php.net/memcached",
   }
 
   php::config { 'memcached':
