@@ -66,7 +66,6 @@ define php_main () {
   include php::extension::mysql
   include php::extension::redis
 
-  # Package deliberately has a space
   php::extension { 'memcached':
     ensure   => installed,
     provider => pecl,
@@ -78,6 +77,22 @@ define php_main () {
       settings => {
         set => {
             '.anon/extension' => 'memcached.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
+  php::extension { 'jsmin':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/jsmin-beta",
+  }
+
+  php::config { 'jsmin':
+      inifile  => '/etc/php5/conf.d/jsmin.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'jsmin.so',
         }
       },
       notify => Class['php::fpm']
