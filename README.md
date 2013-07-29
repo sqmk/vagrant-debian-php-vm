@@ -14,6 +14,17 @@ This vagrant/puppet build installs the following:
 - ElasticSearch
 - RabbitMQ
 
+The following PECL extensions are installed as well:
+- amqp
+- curl
+- imagick
+- jsmin
+- memcached
+- mongo
+- redis
+- xdebug
+- xhprof
+
 ## Installation
 
 The following instructions are specific to OSX.
