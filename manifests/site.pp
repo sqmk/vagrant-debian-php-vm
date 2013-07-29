@@ -55,6 +55,11 @@ define php_supporting () {
 
   $destination_dir  = '/usr/local/src/librabbitmq'
 
+  file { $destination_dir:
+    ensure => 'directory',
+    before => Wget::Fetch['wget_librabbitmq']
+  }
+
   wget::fetch { 'wget_librabbitmq':
     source      => "https://github.com/alanxz/rabbitmq-c/archive/rabbitmq-c-v0.3.0.tar.gz",
     destination => "${destination_dir}/rabbitmq.tar.gz",
@@ -63,7 +68,8 @@ define php_supporting () {
   }
 
   exec { 'librabbitmq_install':
-    command => "cd ${destination_dir} && tar -xvf rabbitmq.tar.gz && cd rabbitmq-c* && autoreconf -i && ./configure && make install clean",
+    cwd     => $destination_dir,
+    command => "tar -xvf rabbitmq.tar.gz && cd rabbitmq-c* && autoreconf -i && ./configure && make install clean",
     creates => '/usr/local/lib/librabbitmq.so',
     require => Wget::Fetch['wget_librabbitmq'],
   }
