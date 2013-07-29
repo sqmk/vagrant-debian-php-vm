@@ -49,8 +49,23 @@ define php_supporting () {
       "libcurl4-openssl-dev",
       "libxml++2.6-dev",
       "mcrypt",
-      "libmcrypt-dev"
+      "libmcrypt-dev",
     ]:
+  }
+
+  $destination_dir  = '/usr/local/src/librabbitmq'
+
+  wget::fetch { 'wget_librabbitmq':
+    source      => "https://github.com/alanxz/rabbitmq-c/archive/rabbitmq-c-v0.3.0.tar.gz",
+    destination => "${destination_dir}/rabbitmq.tar.gz",
+    timeout     => 0,
+    verbose     => true
+  }
+
+  exec { 'librabbitmq_install':
+    command => "cd ${destination_dir} && tar -xvf rabbitmq.tar.gz && cd rabbitmq-c* && autoreconf -i && ./configure && make install clean",
+    creates => '/usr/local/lib/librabbitmq.so',
+    require => Wget::Fetch['wget_librabbitmq'],
   }
 }
 
@@ -61,22 +76,23 @@ define php_main () {
   include php::pear
   include php::fpm
   include php::composer
+  include php::extension::curl
   include php::extension::imagick
   include php::extension::mcrypt
   include php::extension::mysql
   include php::extension::redis
 
-  php::extension { 'memcached':
+  php::extension { 'amqp':
     ensure   => installed,
     provider => pecl,
-    package  => "pecl.php.net/memcached",
+    package  => "pecl.php.net/amqp-1.0.10",
   }
 
-  php::config { 'memcached':
-      inifile  => '/etc/php5/conf.d/memcached.ini',
+  php::config { 'php-extension-amqp':
+      inifile  => '/etc/php5/conf.d/amqp.ini',
       settings => {
         set => {
-            '.anon/extension' => 'memcached.so',
+            '.anon/extension' => 'amqp.so',
         }
       },
       notify => Class['php::fpm']
@@ -88,11 +104,75 @@ define php_main () {
     package  => "pecl.php.net/jsmin-beta",
   }
 
-  php::config { 'jsmin':
+  php::config { 'php-extension-jsmin':
       inifile  => '/etc/php5/conf.d/jsmin.ini',
       settings => {
         set => {
             '.anon/extension' => 'jsmin.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
+  php::extension { 'memcached':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/memcached",
+  }
+
+  php::config { 'php-extension-memcached':
+      inifile  => '/etc/php5/conf.d/memcached.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'memcached.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
+  php::extension { 'mongo':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/mongo",
+  }
+
+  php::config { 'php-extension-mongo':
+      inifile  => '/etc/php5/conf.d/mongo.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'mongo.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
+  php::extension { 'xdebug':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/xdebug",
+  }
+
+  php::config { 'php-extension-xdebug':
+      inifile  => '/etc/php5/conf.d/xdebug.ini',
+      settings => {
+        set => {
+            '.anon/zend_extension' => 'xdebug.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
+  php::extension { 'xhprof':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/xhprof-beta",
+  }
+
+  php::config { 'php-extension-xhprof':
+      inifile  => '/etc/php5/conf.d/xhprof.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'xhprof.so',
         }
       },
       notify => Class['php::fpm']
