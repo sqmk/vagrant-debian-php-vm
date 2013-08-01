@@ -184,6 +184,22 @@ define php_main () {
       notify => Class['php::fpm']
   }
 
+  php::extension { 'apcu':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/apcu-beta",
+  }
+
+  php::config { 'php-extension-apcu':
+      inifile  => '/etc/php5/conf.d/apcu.ini',
+      settings => {
+        set => {
+            '.anon/extension' => 'apcu.so',
+        }
+      },
+      notify => Class['php::fpm']
+  }
+
   Class['php::dev'] -> Class['php::pear'] -> Php::Extension <| |> -> Php::Config <| |>
 }
 
