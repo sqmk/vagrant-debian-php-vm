@@ -238,7 +238,6 @@ include php_install
 include mail_configuration, cache_configuration
 include rabbitmq::server
 include java, elasticsearch
-include mongodb
 
 class { 'nginx':
   confd_purge => true
