@@ -43,6 +43,3 @@
 [submodule "modules/augeas"]
 	path = modules/augeas
 	url = https://github.com/camptocamp/puppet-augeas.git
-[submodule "modules/mongodb"]
-	path = modules/mongodb
-	url = https://github.com/portertech/puppet-mongodb.git
