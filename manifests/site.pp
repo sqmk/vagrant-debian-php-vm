@@ -6,35 +6,19 @@ Exec {
 
 # Stages
 
-stage { 'preinstall':
+stage { 'preinstall_apt':
+  before => Stage['preinstall_libs']
+}
+
+stage { 'preinstall_libs':
   before => Stage['main']
 }
 
 # Custom classes
 
-class debian_update {
-  class { 'apt': }
+class required_libs {
+  include wget
 
-  apt::source { 'dotdeb':
-    location   => 'http://packages.dotdeb.org',
-    release    => 'wheezy-php55',
-    repos      => 'all',
-    key        => '89DF5277',
-    key_server => 'keys.gnupg.net'
-  }
-
-  exec { "apt-get update":
-    command => "apt-get update",
-    require => Apt::Source['dotdeb'],
-  }
-
-  exec { "apt-get upgrade":
-    command => "apt-get -y dist-upgrade",
-    require => Exec["apt-get update"],
-  }
-}
-
-define php_supporting () {
   package {
     [
       "ntp",
@@ -50,6 +34,7 @@ define php_supporting () {
       "libxml++2.6-dev",
       "mcrypt",
       "libmcrypt-dev",
+      "libtool",
     ]:
   }
 
@@ -62,16 +47,20 @@ define php_supporting () {
 
   wget::fetch { 'wget_librabbitmq':
     source      => "https://github.com/alanxz/rabbitmq-c/archive/rabbitmq-c-v0.3.0.tar.gz",
-    destination => "${destination_dir}/rabbitmq.tar.gz",
+    destination => "${destination_dir}/librabbitmq.tar.gz",
     timeout     => 0,
     verbose     => true
   }
 
   exec { 'librabbitmq_install':
     cwd     => $destination_dir,
-    command => "tar -xvf rabbitmq.tar.gz && cd rabbitmq-c* && autoreconf -i && ./configure && make install clean",
+    command => "tar -xvf librabbitmq.tar.gz && cd rabbitmq-c* && ldconfig && autoreconf -i && ./configure && make install clean",
     creates => '/usr/local/lib/librabbitmq.so',
-    require => Wget::Fetch['wget_librabbitmq'],
+    require => [
+      Wget::Fetch['wget_librabbitmq'],
+      Package['autoconf'],
+      Package['libtool']
+    ],
   }
 }
 
@@ -204,10 +193,7 @@ define php_main () {
 }
 
 class php_install {
-  php_supporting { "supporting": }
-  php_main { "php-5.5.0": }
-
-  Php_supporting <| |> -> Php_main <| |>
+  php_main { "php-5.5.1": }
 }
 
 class mail_configuration {
@@ -230,7 +216,11 @@ class cache_configuration {
 # Include classes
 
 class { 'sqmk::apt::repo':
-  stage => preinstall
+  stage => preinstall_apt
+}
+
+class { 'required_libs':
+  stage => preinstall_libs
 }
 
 include git
