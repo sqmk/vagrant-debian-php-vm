@@ -84,13 +84,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-amqp':
-      inifile  => '/etc/php5/conf.d/amqp.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'amqp.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/amqp.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'amqp.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'jsmin':
@@ -100,13 +100,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-jsmin':
-      inifile  => '/etc/php5/conf.d/jsmin.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'jsmin.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/jsmin.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'jsmin.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'memcached':
@@ -116,13 +116,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-memcached':
-      inifile  => '/etc/php5/conf.d/memcached.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'memcached.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/memcached.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'memcached.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'mongo':
@@ -132,13 +132,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-mongo':
-      inifile  => '/etc/php5/conf.d/mongo.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'mongo.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/mongo.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'mongo.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'xdebug':
@@ -148,13 +148,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-xdebug':
-      inifile  => '/etc/php5/conf.d/xdebug.ini',
-      settings => {
-        set => {
-            '.anon/zend_extension' => 'xdebug.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/xdebug.ini',
+    settings => {
+      set => {
+        '.anon/zend_extension' => 'xdebug.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'xhprof':
@@ -164,13 +164,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-xhprof':
-      inifile  => '/etc/php5/conf.d/xhprof.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'xhprof.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/xhprof.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'xhprof.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   php::extension { 'apcu':
@@ -180,13 +180,13 @@ define php_main () {
   }
 
   php::config { 'php-extension-apcu':
-      inifile  => '/etc/php5/conf.d/apcu.ini',
-      settings => {
-        set => {
-            '.anon/extension' => 'apcu.so',
-        }
-      },
-      notify => Class['php::fpm']
+    inifile  => '/etc/php5/conf.d/apcu.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'apcu.so',
+      }
+    },
+    notify => Class['php::fpm']
   }
 
   Class['php::dev'] -> Class['php::pear'] -> Php::Extension <| |> -> Php::Config <| |>
