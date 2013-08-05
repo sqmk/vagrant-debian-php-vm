@@ -5,7 +5,7 @@ Vagrant + Puppet installation of Debian focusing on PHP development.
 ## Introduction
 
 This vagrant/puppet build installs the following:
-- PHP 5.5
+- PHP 5.5.X
 - Nginx
 - PHP-FPM
 - Redis
