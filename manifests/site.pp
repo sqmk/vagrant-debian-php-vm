@@ -80,7 +80,7 @@ define php_main () {
   php::extension { 'amqp':
     ensure   => installed,
     provider => pecl,
-    package  => "pecl.php.net/amqp-1.0.10",
+    package  => "pecl.php.net/amqp-1.2.0",
   }
 
   php::config { 'php-extension-amqp':
