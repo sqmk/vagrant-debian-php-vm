@@ -228,6 +228,7 @@ include php_install
 include mail_configuration, cache_configuration
 include rabbitmq::server
 include java, elasticsearch
+include mongodb
 
 class { 'nginx':
   confd_purge => true
@@ -245,8 +246,4 @@ nginx::resource::location { 'php-dev.example.com:php':
   location       => '~ \.php$',
   fastcgi        => 'unix:/var/run/php5-fpm.sock',
   fastcgi_script => '$document_root$fastcgi_script_name',
-}
-
-class { 'mysql::server':
-  config_hash => { 'root_password' => 'password' }
 }

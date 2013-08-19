@@ -22,6 +22,15 @@ class sqmk::apt::repo {
     key_server => 'keys.gnupg.net',
   }
 
+  apt::source { '10gen':
+    location    => 'http://downloads-distro.mongodb.org/repo/debian-sysvinit',
+    release     => 'dist',
+    repos       => '10gen',
+    key         => '7F0CEB10',
+    key_server  => 'keyserver.ubuntu.com',
+    include_src => false,
+  }
+
   exec { 'apt-get upgrade':
     command => "apt-get -y dist-upgrade",
     require => Class['apt::update'],
