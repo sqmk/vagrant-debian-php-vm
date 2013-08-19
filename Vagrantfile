@@ -10,10 +10,10 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "app/", "/app", :nfs => true
 
   config.vm.provision :puppet do |puppet|
-  	puppet.manifests_path = "manifests"
+    puppet.manifests_path = "manifests"
     puppet.manifest_file = "site.pp"
-  	puppet.module_path = "modules"
-  	puppet.options = "--hiera_config /vagrant/config/hiera.yaml"
+    puppet.module_path = "modules"
+    puppet.options = "--hiera_config /vagrant/config/hiera.yaml"
   end
 
 end

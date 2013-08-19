@@ -7,12 +7,12 @@
 # No parameters
 #
 class sqmk::apt::repo {
-	include apt
-	include apt::update
+  include apt
+  include apt::update
 
-	anchor { 'sqmk::apt::repo::begin':
-		before => Apt::Source['dotdeb'],
-	}
+  anchor { 'sqmk::apt::repo::begin':
+    before => Apt::Source['dotdeb'],
+  }
 
   apt::source { 'dotdeb':
     location   => 'http://packages.dotdeb.org',
@@ -37,6 +37,6 @@ class sqmk::apt::repo {
   }
 
   anchor { 'sqmk::apt::repo::end':
-  	require => Exec['apt-get upgrade']
-	}
+    require => Exec['apt-get upgrade']
+  }
 }
