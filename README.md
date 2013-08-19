@@ -1,4 +1,4 @@
-# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5, MySQL 5.5, Nginx, Redis
+# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5.1, MySQL 5.5, Nginx, Redis, MongoDB
 
 Vagrant + Puppet installation of Debian focusing on PHP development.
 
@@ -13,6 +13,7 @@ This vagrant/puppet build installs the following:
 - MySQL 5.5.X
 - ElasticSearch
 - RabbitMQ
+- MongoDB
 
 The following PECL extensions are installed as well:
 - amqp
