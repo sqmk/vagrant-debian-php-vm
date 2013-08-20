@@ -109,6 +109,22 @@ define php_main () {
     notify => Class['php::fpm']
   }
 
+  php::extension { 'uuid':
+    ensure   => installed,
+    provider => pecl,
+    package  => "pecl.php.net/uuid",
+  }
+
+  php::config { 'php-extension-uuid':
+    inifile  => '/etc/php5/conf.d/uuid.ini',
+    settings => {
+      set => {
+        '.anon/extension' => 'uuid.so',
+      }
+    },
+    notify => Class['php::fpm']
+  }
+
   php::extension { 'memcached':
     ensure   => installed,
     provider => pecl,
