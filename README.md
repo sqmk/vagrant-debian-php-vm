@@ -23,6 +23,7 @@ The following PECL extensions are installed as well:
 - memcached
 - mongo
 - redis
+- uuid
 - xdebug
 - xhprof
 
