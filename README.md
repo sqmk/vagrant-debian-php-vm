@@ -60,3 +60,11 @@ $ vagrant up
 ```
 
 *Note:* You may be prompted with your OSX password during the point where NFS is enabled. You must provide your password to proceed.
+
+## Usage
+
+The host IP is *192.168.33.10*.
+
+The following ports have been exposed for the following services:
+* Nginx: 80
+* ElasticSearch: 9200
