@@ -37,12 +37,12 @@
 [submodule "modules/puppi"]
 	path = modules/puppi
 	url = https://github.com/example42/puppi.git
-[submodule "modules/php"]
-	path = modules/php
-	url = https://github.com/nodesagency/puppet-php.git
 [submodule "modules/augeas"]
 	path = modules/augeas
 	url = https://github.com/camptocamp/puppet-augeas.git
 [submodule "modules/mongodb"]
 	path = modules/mongodb
 	url = https://github.com/puppetlabs/puppetlabs-mongodb
+[submodule "modules/php"]
+	path = modules/php
+	url = https://github.com/jippi/puppet-php.git
