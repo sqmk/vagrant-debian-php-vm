@@ -63,7 +63,7 @@ $ vagrant up
 
 ## Usage
 
-The host IP is *192.168.33.10*.
+The host IP is *192.168.1.121*.
 
 The following ports have been exposed for the following services:
 * Nginx: 80
