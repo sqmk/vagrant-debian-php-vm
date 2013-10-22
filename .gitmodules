@@ -46,6 +46,3 @@
 [submodule "modules/php"]
 	path = modules/php
 	url = https://github.com/jippi/puppet-php.git
-[submodule "modules/ruby"]
-	path = modules/ruby
-	url = https://github.com/puppetlabs/puppetlabs-ruby.git
