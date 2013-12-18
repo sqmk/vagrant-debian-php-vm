@@ -209,7 +209,7 @@ define php_main () {
 }
 
 class php_install {
-  php_main { "php-5.5.6": }
+  php_main { "php-5.5.7": }
 }
 
 class mail_configuration {
