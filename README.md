@@ -1,11 +1,11 @@
-# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5.6, MySQL 5.5, Nginx, Redis, MongoDB
+# Vagrant: Debian VM (wheezy 64bit) with PHP 5.5.7, MySQL 5.5, Nginx, Redis, MongoDB
 
 Vagrant + Puppet installation of Debian focusing on PHP development.
 
 ## Introduction
 
 This vagrant/puppet build installs the following:
-- PHP 5.5.6
+- PHP 5.5.7
 - Nginx
 - PHP-FPM
 - Redis
