@@ -68,6 +68,7 @@ define php_main () {
   include augeas
   include php
   include php::dev
+  include php::cli
   include php::pear
   include php::fpm
   include php::composer
